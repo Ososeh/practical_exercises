@@ -1,0 +1,765 @@
+/* Shared design tokens keep every exercise visually consistent. */
+:root {
+  --page: #f5f7fc;
+  --surface: #ffffff;
+  --surface-muted: #f8fafc;
+  --text: #172554;
+  --muted: #64748b;
+  --primary: #4f46e5;
+  --primary-dark: #4338ca;
+  --primary-soft: #eef2ff;
+  --success: #15803d;
+  --success-soft: #f0fdf4;
+  --warning: #c2410c;
+  --warning-soft: #fff7ed;
+  --danger: #dc2626;
+  --danger-soft: #fef2f2;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --shadow: 0 22px 60px rgba(30, 64, 175, 0.09);
+  color: var(--text);
+  background: var(--page);
+  font-family: Arial, Helvetica, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  background: var(--page);
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(circle at 18% 0%, rgba(224, 231, 255, 0.9), transparent 30rem),
+    radial-gradient(circle at 90% 8%, rgba(219, 234, 254, 0.65), transparent 26rem),
+    var(--page);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button,
+input {
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid rgba(79, 70, 229, 0.24);
+  outline-offset: 3px;
+}
+
+/* Main application frame. */
+.practice-page {
+  min-height: 100vh;
+  padding: 44px 24px;
+}
+
+.practice-app {
+  width: min(100%, 1180px);
+  margin: 0 auto;
+}
+
+.page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 30px;
+}
+
+.header-copy {
+  max-width: 760px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 12px;
+  color: var(--primary);
+  font-size: 0.76rem;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 0 5px rgba(79, 70, 229, 0.1);
+  content: "";
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: clamp(2.25rem, 5vw, 3.8rem);
+  font-weight: 760;
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+}
+
+.page-header p:last-child {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.progress-badge {
+  flex: 0 0 auto;
+  padding: 10px 14px;
+  border: 1px solid #c7d2fe;
+  border-radius: 999px;
+  background: rgba(238, 242, 255, 0.9);
+  color: var(--primary);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.practice-layout {
+  display: grid;
+  grid-template-columns: 290px minmax(0, 1fr);
+  align-items: start;
+  gap: 24px;
+}
+
+/* Exercise navigation remains separate from the selected content. */
+.exercise-nav {
+  position: sticky;
+  top: 24px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 12px 35px rgba(30, 64, 175, 0.07);
+  backdrop-filter: blur(14px);
+}
+
+.nav-heading {
+  margin: 4px 8px 12px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.nav-list {
+  display: grid;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.exercise-tab {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 42px 1fr;
+  align-items: center;
+  gap: 12px;
+  padding: 11px;
+  border: 1px solid transparent;
+  border-radius: 13px;
+  background: transparent;
+  color: var(--muted);
+  text-align: left;
+}
+
+.exercise-tab:hover {
+  border-color: var(--border);
+  background: var(--surface-muted);
+  color: var(--text);
+}
+
+.exercise-tab.active {
+  border-color: #c7d2fe;
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+.tab-number {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 780;
+}
+
+.exercise-tab.active .tab-number {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.tab-copy {
+  min-width: 0;
+}
+
+.tab-copy strong,
+.tab-copy span {
+  display: block;
+}
+
+.tab-copy strong {
+  color: inherit;
+  font-size: 0.92rem;
+}
+
+.tab-copy span {
+  margin-top: 3px;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 0.76rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Selected exercise container and reusable headings. */
+.exercise-panel {
+  min-height: 620px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: var(--shadow);
+}
+
+.exercise-panel > [hidden] {
+  display: none;
+}
+
+.exercise-heading {
+  padding: 30px 32px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.exercise-label {
+  margin: 0 0 8px;
+  color: var(--primary);
+  font-size: 0.76rem;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.exercise-heading h2 {
+  margin: 0;
+  font-size: clamp(1.65rem, 3vw, 2.25rem);
+  letter-spacing: -0.025em;
+}
+
+.exercise-heading p:last-child {
+  max-width: 680px;
+  margin: 10px 0 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.exercise-content {
+  display: grid;
+  min-height: 480px;
+  place-items: center;
+  padding: 42px 32px;
+}
+
+.demo-card {
+  width: min(100%, 580px);
+  padding: 30px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: 0 12px 32px rgba(30, 64, 175, 0.08);
+}
+
+.demo-card h3 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.demo-description {
+  margin: 8px 0 24px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.primary-button,
+.secondary-button,
+.danger-button,
+.counter-button {
+  min-height: 48px;
+  border-radius: 12px;
+  font-weight: 720;
+}
+
+.primary-button {
+  border: 1px solid var(--primary);
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.primary-button:hover {
+  border-color: var(--primary-dark);
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.secondary-button {
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.secondary-button:hover {
+  border-color: #a5b4fc;
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+.danger-button {
+  border: 1px solid #fecaca;
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.danger-button:hover {
+  border-color: var(--danger);
+  background: #fee2e2;
+}
+
+/* Exercise 1: Like Button. */
+.like-demo {
+  text-align: center;
+}
+
+.like-icon {
+  display: grid;
+  width: 82px;
+  height: 82px;
+  margin: 0 auto 18px;
+  place-items: center;
+  border-radius: 24px;
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-size: 2.2rem;
+}
+
+.like-count {
+  margin: 0 0 22px;
+  color: var(--muted);
+  font-weight: 650;
+}
+
+.like-button {
+  min-width: 180px;
+  padding-inline: 24px;
+}
+
+/* Exercise 2: controlled password input. */
+.field-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.password-field {
+  display: flex;
+  gap: 10px;
+}
+
+.text-input {
+  min-width: 0;
+  flex: 1;
+  height: 52px;
+  padding: 0 16px;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.text-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+  outline: none;
+}
+
+.password-toggle {
+  min-width: 150px;
+  padding-inline: 16px;
+}
+
+.field-hint {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.5;
+}
+
+/* Exercise 3: conditional login state. */
+.status-card {
+  text-align: center;
+}
+
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--warning-soft);
+  color: var(--warning);
+  font-size: 0.82rem;
+  font-weight: 720;
+}
+
+.status-indicator::before {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  content: "";
+}
+
+.status-indicator.logged-in {
+  background: var(--success-soft);
+  color: var(--success);
+}
+
+.status-message {
+  margin: 0 0 26px;
+  font-size: clamp(1.7rem, 4vw, 2.4rem);
+  letter-spacing: -0.03em;
+}
+
+.status-card button {
+  min-width: 170px;
+  padding-inline: 22px;
+}
+
+/* Exercise 4: product quantity counter. */
+.product-preview {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 26px;
+  padding: 16px;
+  border-radius: 15px;
+  background: var(--surface-muted);
+}
+
+.product-symbol {
+  display: grid;
+  width: 58px;
+  height: 58px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 16px;
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-size: 1.6rem;
+}
+
+.product-copy strong,
+.product-copy span {
+  display: block;
+}
+
+.product-copy span {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.quantity-control {
+  display: grid;
+  grid-template-columns: 54px minmax(100px, 1fr) 54px;
+  gap: 10px;
+  align-items: center;
+}
+
+.counter-button {
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--primary);
+  font-size: 1.3rem;
+}
+
+.counter-button:hover:not(:disabled) {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
+
+.counter-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.42;
+}
+
+.quantity-value {
+  text-align: center;
+}
+
+.quantity-value strong,
+.quantity-value span {
+  display: block;
+}
+
+.quantity-value strong {
+  font-size: 2rem;
+}
+
+.quantity-value span {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.reset-button {
+  width: 100%;
+  margin-top: 16px;
+}
+
+/* Exercise 5: student array and reusable rows. */
+.student-demo {
+  width: min(100%, 720px);
+}
+
+.student-summary {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.summary-card {
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface-muted);
+  text-align: center;
+}
+
+.summary-card strong,
+.summary-card span {
+  display: block;
+}
+
+.summary-card strong {
+  color: var(--primary);
+  font-size: 1.7rem;
+}
+
+.summary-card span {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.84rem;
+  font-weight: 650;
+}
+
+.student-list {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  list-style: none;
+}
+
+.student-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.student-item:last-child {
+  border-bottom: 0;
+}
+
+.student-item.present {
+  background: rgba(240, 253, 244, 0.55);
+}
+
+.student-info {
+  min-width: 0;
+}
+
+.student-info strong {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.student-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.student-course,
+.attendance-badge {
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 0.73rem;
+  font-weight: 680;
+}
+
+.student-course {
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+.attendance-badge {
+  background: var(--warning-soft);
+  color: var(--warning);
+}
+
+.attendance-badge.present {
+  background: var(--success-soft);
+  color: var(--success);
+}
+
+.student-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.student-actions button {
+  min-height: 40px;
+  padding: 0 12px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.student-empty {
+  padding: 44px 20px;
+  border: 2px dashed var(--border-strong);
+  border-radius: 15px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.student-empty strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+
+/* Navigation moves above the exercise on tablets. */
+@media (max-width: 900px) {
+  .page-header {
+    align-items: flex-start;
+  }
+
+  .practice-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .exercise-nav {
+    position: static;
+    overflow-x: auto;
+  }
+
+  .nav-heading {
+    margin-bottom: 10px;
+  }
+
+  .nav-list {
+    display: flex;
+    min-width: max-content;
+  }
+
+  .exercise-tab {
+    width: 220px;
+  }
+}
+
+/* Small screens stack controls and preserve comfortable touch targets. */
+@media (max-width: 620px) {
+  .practice-page {
+    padding: 28px 14px;
+  }
+
+  .page-header {
+    flex-direction: column;
+  }
+
+  .exercise-panel {
+    min-height: auto;
+  }
+
+  .exercise-heading {
+    padding: 24px 20px 20px;
+  }
+
+  .exercise-content {
+    min-height: 440px;
+    padding: 28px 18px;
+  }
+
+  .demo-card {
+    padding: 22px;
+  }
+
+  .password-field {
+    flex-direction: column;
+  }
+
+  .password-toggle {
+    width: 100%;
+  }
+
+  .student-item {
+    grid-template-columns: 1fr;
+  }
+
+  .student-actions button {
+    flex: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Respect the user's operating-system motion preference. */
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
